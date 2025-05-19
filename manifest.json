@@ -1,10 +1,11 @@
 {
   "domain": "bereal_time",
   "name": "BeReal Time",
-  "codeowners": [@MegaTheLEGEND],
-  "config_flow": false,
+  "codeowners": [ "@MegaTheLEGEND" ],
+  "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/MegaTheLEGEND/HA-BeReal-Sensor",
   "iot_class": "cloud_polling",
-  "requirements": []
+  "requirements": [],
+  "version": "1.0.0"
 }

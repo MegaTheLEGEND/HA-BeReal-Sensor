@@ -1,0 +1,13 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configure BeReal",
+        "description": "Set up the BeReal region.",
+        "data": {
+          "region": "Region"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+DOMAIN = "bereal_time"

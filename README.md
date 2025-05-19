@@ -31,9 +31,8 @@ custom_components/bereal_time/
 
 ````
 
-3. Add `bereal_sensor:` to your configuration.yaml
-
-4. Restart Home Assistant
+3. Restart Home Assistant
+4. Go throught the intgration setup flow for `BeReal Time` on the devices page.
 
 ---
 

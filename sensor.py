@@ -9,46 +9,47 @@ from datetime import timedelta
 import aiohttp
 
 from homeassistant.components.sensor import SensorEntity
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 from homeassistant.helpers.event import async_track_time_interval
 
-
+DOMAIN = "bereal_time"
 SCAN_INTERVAL = timedelta(seconds=5)
-BEREAL_API = "https://mobile-l7.bereal.com/api/bereal/moments/last/us-central"
+DEFAULT_REGION = "us-central"
 
 
-async def async_setup_platform(
+async def async_setup_entry(
     hass: HomeAssistant,
-    _config: ConfigType,
+    entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
-    discovery_info: DiscoveryInfoType | None = None,
 ) -> None:
-    """Set up the BeReal Time sensor platform."""
-    if discovery_info is None:
-        return
-    sensor = BeRealSensor(hass)
-    async_add_entities([sensor])
+    """Set up BeReal Time sensor from a config entry."""
+    region = entry.data.get("region", DEFAULT_REGION)
+    sensor = BeRealSensor(hass, region)
+    async_add_entities([sensor], True)
+
     async_track_time_interval(hass, sensor.async_update, SCAN_INTERVAL)
 
 
 class BeRealSensor(SensorEntity):
     """Sensor for BeReal Time."""
 
-    def __init__(self, hass: HomeAssistant) -> None:
-        """Initialize the BeReal Time sensor."""
+    def __init__(self, hass: HomeAssistant, region: str) -> None:
         self.hass = hass
-        self._attr_name = "BeReal Time"
+        self._region = region
+        self._api_url = f"https://mobile-l7.bereal.com/api/bereal/moments/last/{region}"
+        self._attr_name = f"BeReal Time ({region})"
         self._attr_native_value = None
         self._attr_extra_state_attributes = {}
+        self._attr_unique_id = f"bereal_time_{region}"
 
     async def async_update(self, _now=None) -> None:
         """Fetch new state data for the sensor."""
         try:
             session = async_get_clientsession(self.hass)
-            async with session.get(BEREAL_API, timeout=10) as resp:
+            async with session.get(self._api_url, timeout=10) as resp:
                 resp.raise_for_status()
                 data = await resp.json()
 
@@ -107,7 +108,7 @@ class BeRealSensor(SensorEntity):
         instance = None
 
         if start is not None and end is not None and local_timestamp is not None:
-            now_local = datetime.datetime.now().astimezone()  # Local timezone
+            now_local = datetime.datetime.now().astimezone()
             current_local_date = now_local.date()
 
             bereal_local_date = (
