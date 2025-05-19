@@ -1,10 +1,10 @@
 {
   "domain": "bereal_time",
   "name": "BeReal Time",
-  "codeowners": [],
+  "codeowners": [@MegaTheLEGEND],
   "config_flow": false,
   "dependencies": [],
-  "documentation": "https://www.home-assistant.io/integrations/bereal_time",
+  "documentation": "https://github.com/MegaTheLEGEND/HA-BeReal-Sensor",
   "iot_class": "cloud_polling",
   "requirements": []
 }
