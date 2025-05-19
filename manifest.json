@@ -1,0 +1,10 @@
+{
+  "domain": "bereal_time",
+  "name": "BeReal Time",
+  "codeowners": [],
+  "config_flow": false,
+  "dependencies": [],
+  "documentation": "https://www.home-assistant.io/integrations/bereal_time",
+  "iot_class": "cloud_polling",
+  "requirements": []
+}
