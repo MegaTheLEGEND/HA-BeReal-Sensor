@@ -1,0 +1,6 @@
+{
+    "name": "HA BeReal Sensor",
+    "content_in_root": true,
+    "country": "US",
+    "homeassistant": "2021.12.0"
+}
