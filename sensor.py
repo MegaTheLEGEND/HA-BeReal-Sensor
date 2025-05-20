@@ -156,7 +156,7 @@ class BeRealSensor(SensorEntity):
                 .date()
             )
 
-            six_am = now_local.replace(hour=6, minute=0, second=0, microsecond=0)
+            six_am = now_local.replace(hour=7, minute=0, second=0, microsecond=0)
 
             if current_local_date > bereal_local_date:
                 instance = "waiting"
